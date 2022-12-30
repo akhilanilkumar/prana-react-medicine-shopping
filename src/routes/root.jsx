@@ -1,19 +1,29 @@
-import {Link, Outlet} from "react-router-dom";
+import {Outlet, useLoaderData} from "react-router-dom";
+import ResponsiveAppBar from "../header/header";
+import {FormControl, Input, InputAdornment, InputLabel} from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
+import UserList from "../contact/user-list";
 
 const Root = () => {
+    const users = useLoaderData();
     return (
         <>
+            <ResponsiveAppBar></ResponsiveAppBar>
             <div id="sidebar">
-                <h1>React Router Contacts</h1>
                 <div>
                     <form id="search-form" role="search">
-                        <input
-                            id="q"
-                            aria-label="Search contacts"
-                            placeholder="Search"
-                            type="search"
-                            name="q"
-                        />
+                        <FormControl sx={{m: 1, width: '25ch'}} variant="standard">
+                            <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                            <Input
+                                id="standard-adornment-password"
+                                type='text'
+                                endAdornment={
+                                    <InputAdornment position="end">
+                                        <SearchIcon aria-label="toggle password visibility"/>
+                                    </InputAdornment>
+                                }
+                            />
+                        </FormControl>
                         <div
                             id="search-spinner"
                             aria-hidden
@@ -23,27 +33,20 @@ const Root = () => {
                             className="sr-only"
                             aria-live="polite"
                         ></div>
-                    </form>
-                    <form method="post">
-                        <button type="submit">New</button>
+                        <UserList users={users}/>
                     </form>
                 </div>
-                <nav>
-                    <ul>
-                        <li>
-                            <Link to={`contacts/1`}>Your Name</Link>
-                        </li>
-                        <li>
-                            <Link to={`contacts/2`}>Your Friend</Link>
-                        </li>
-                    </ul>
-                </nav>
             </div>
             <div id="detail">
                 <Outlet/>
             </div>
         </>
     );
+}
+
+export const loader = async () => {
+    const response = await fetch('https://jsonplaceholder.typicode.com/photos');
+    return await response.json();
 }
 
 export default Root;
