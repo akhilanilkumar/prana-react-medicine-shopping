@@ -8,15 +8,14 @@ const UserList = ({users}) => (
     <List sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}>
         {
             users && users.length && users.map(user => (
-                <>
-                    <ListItem alignItems="flex-start" key="{user.id}">
+                <span key={user.id}>
+                    <ListItem alignItems="flex-start">
                         <ListItemAvatar>
                             <Avatar alt="Remy Sharp" src={user.thumbnailUrl}/>
                         </ListItemAvatar>
                         <ListItemText
-                            primary="Brunch this weekend?"
+                            primary={user.name}
                             secondary={
-                                // eslint-disable-next-line react/jsx-no-undef
                                 <React.Fragment>
                                     <Typography
                                         sx={{display: 'inline'}}
@@ -24,15 +23,15 @@ const UserList = ({users}) => (
                                         variant="body2"
                                         color="text.primary"
                                     >
-                                        Ali Connors
+                                        {user.address}
                                     </Typography>
-                                    {` — ${user.title}`}
+                                    {` — ${user.phone}`}
                                 </React.Fragment>
                             }
                         />
                     </ListItem>
                     <Divider variant="inset" component="li"/>
-                </>
+                </span>
             ))
         }
     </List>

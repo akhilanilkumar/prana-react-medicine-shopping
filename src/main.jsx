@@ -3,6 +3,7 @@ import Root, {loader as rootLoader} from "./routes/root";
 import ErrorPage from "./error/error-page";
 import Contact from "./contact/contact";
 import Products from "./products/products";
+import Login from "./login/login";
 
 const router = createBrowserRouter([
     {
@@ -11,6 +12,9 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage/>,
         loader: rootLoader,
         children: [{
+            path: 'login',
+            element: <Login/>
+        }, {
             path: 'contact',
             element: <Contact/>
         }, {

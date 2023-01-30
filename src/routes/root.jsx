@@ -45,7 +45,7 @@ const Root = () => {
 }
 
 export const loader = async () => {
-    const response = await fetch('https://jsonplaceholder.typicode.com/photos');
+    const response = await fetch('http://localhost:8080/inventory/api/patient');
     return await response.json();
 }
 
